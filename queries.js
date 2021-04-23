@@ -8,12 +8,13 @@ const getPark = (req ,res) => {
     })
 }
 
-const insertPark = (req, res) => {
+const insertPark = (req, res, next) => {
     const { parkName } = req.body;
     pool.query(SQL`INSERT INTO park (name) 
                    VALUES (${parkName}) RETURNING id`, (error, results) => {
         if (error) {}
-        res.send(200)
+        req.body.parkId = results.rows[0].id
+        next()
     })
 }
 
@@ -44,7 +45,6 @@ const insertData = (req, res) => {
 }
 
 
-
 const getData = (req, res) => {
     pool.query(SQL`SELECT groupofducks.Id, park.name AS park_name, food_name, food_quantity, time_fed, group_size 
                    FROM groupofducks 
@@ -55,10 +55,10 @@ const getData = (req, res) => {
 }
 
 
-
 module.exports = {
     getPark,
     insertPark,
     insertData,
-    getData
+    getData,
+    getParkByName
 }
