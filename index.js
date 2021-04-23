@@ -16,6 +16,8 @@ app.use(
 
 app.get('/park', db.getPark)
 app.post('/park', db.insertPark)
+app.get('/data', db.getData)
+app.post('/data', db.insertData)
 
 
 app.listen(9001, () => {
