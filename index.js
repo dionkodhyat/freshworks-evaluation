@@ -15,6 +15,8 @@ app.use(
 
 
 app.get('/park', db.getPark)
+app.post('/park', db.insertPark)
+
 
 app.listen(9001, () => {
     console.log("LISTENING ON PORT 9001")

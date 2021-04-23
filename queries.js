@@ -8,7 +8,17 @@ const getPark = (req ,res) => {
     })
 }
 
+const insertPark = (req, res) => {
+    const { parkName } = req.body;
+    pool.query(SQL`INSERT INTO park (name) 
+                   VALUES (${parkName}) RETURNING id`, (error, results) => {
+        if (error) {}
+        res.send(200)
+    })
+}
+
 
 module.exports = {
-    getPark
+    getPark,
+    insertPark
 }
