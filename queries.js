@@ -17,6 +17,21 @@ const insertPark = (req, res) => {
     })
 }
 
+const getParkByName = (req, res, next) => {
+    const { parkName } = req.body
+    pool.query(SQL`SELECT * FROM park 
+                   WHERE name=${parkName}`, (error, results) => {
+        if (error) res.sendStatus(405)
+        if (results.rows.length === 0) next('route');
+        else {
+            req.body.parkId = results.rows[0].id;
+            next();
+        }
+        
+    })
+}
+
+
 const insertData = (req, res) => {
     console.log(req.body)
     const { parkId, numOfDucks, foodType, foodAmount, timeFed } = req.body;
