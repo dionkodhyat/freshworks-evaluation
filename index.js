@@ -17,5 +17,5 @@ app.post('/data', db.getParkByName, db.validateData, db.insertData)
 app.post('/data', db.insertPark, db.validateData, db.insertData)
 
 app.listen(9000, (req, res) => {
-    console.log('LISTENING ON PORT 3000')
+    console.log('LISTENING ON PORT 9000')
 })
