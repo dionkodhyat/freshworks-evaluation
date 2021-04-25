@@ -15,7 +15,8 @@ const DataForm = (props) => {
     const [numOfDucksValidate, setNumOfDucksValidate] = useState(false)
     const [foodAmountValidate, setFoodAmountValidate] = useState(false)
 
-
+    const url = "http://localhost:9000/data"
+    // const url = ""
 
     const handleSubmit = async (e) => {
         e.preventDefault()

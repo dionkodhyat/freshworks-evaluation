@@ -12,30 +12,31 @@ const getParkByName = async (req, res, next) => {
     try {
         const data = await pool.query(SQL`SELECT * FROM park 
                                           WHERE name=${parkName}`) 
-        if (data.rows.length === 0) next('route');
+        if (data.rows.length === 0) {
+            console.log('Park not found')
+            next('route')
+        }
         else {
-            req.body.parkId = data.rows[0].id;
-            next();
+            req.body.parkId = data.rows[0].id
+            next()
         }
     } catch (error) {
         res.sendStatus(405)
     }
 }
 
-const insertPark = async (req, res, next) => {
+const insertPark = (req, res, next) => {
     const { parkName } = req.body;
-    try {
-        data = await pool.query(SQL`INSERT INTO park (name) 
-                       VALUES (${parkName}) RETURNING id`)
-        req.body.parkId = results.data[0].id
+    pool.query(SQL`INSERT INTO park (name) 
+                   VALUES (${parkName}) RETURNING id`, (error, results) => {
+        if (error) res.sendStatus(500)
+        req.body.parkId = results.rows[0].id
         next()
-    } catch(err) {
-        res.sendStatus(500)
-    }
+    })
 }
 
 const insertData = async (req, res) => {
-    const { parkId, numOfDucks, foodType, foodAmount, timeFed } = req.body;
+    const { parkId, numOfDucks, foodType, foodAmount, timeFed } = req.body
     try {
         const data = await pool.query(SQL`INSERT INTO groupofducks (park_id, group_size, food_name, food_quantity, time_fed) 
                                           VALUES (${parkId}, ${numOfDucks}, ${foodType}, ${foodAmount}, ${timeFed})`)
