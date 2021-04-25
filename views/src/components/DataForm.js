@@ -15,8 +15,8 @@ const DataForm = (props) => {
     const [numOfDucksValidate, setNumOfDucksValidate] = useState(false)
     const [foodAmountValidate, setFoodAmountValidate] = useState(false)
 
-    const url = "http://localhost:9000/data"
-    // const url = ""
+    // const url = "http://localhost:9000/data"
+    const url = "https://dion-fw-heroku.herokuapp.com/data"
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -28,7 +28,7 @@ const DataForm = (props) => {
             timeFed : `${hour}:${minute}`
         }
         try {
-            const response = await fetch("http://localhost:9000/data", {
+            const response = await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
                 },

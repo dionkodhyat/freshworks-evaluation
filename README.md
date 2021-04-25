@@ -29,7 +29,7 @@ I mainly used these stack because these were the ones that I was most comfortabl
 
 ## How to run the app
 
-I have deployed the server and database to Heroku to simplify the setup process. However, I have wrote down a guide down below to setup and run a server on the local machine. Either clone the repo or down oad the zip file. Then on the terminal, ensure you are on the `myapp` directory. 
+I have deployed the server and database to Heroku to simplify the setup process. The application front-end can be tested easily without needing to setup the backend. However, I have wrote down a guide down below to setup and run a server on the local machine. Either clone the repo or download the zip file. Then on the terminal, ensure you are on the `myapp` directory. 
 
 ### Running the Client
 
@@ -39,9 +39,9 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 
 
-### Hosting the server and database locally
+### Hosting the database locally
 
-- Install [PostgreSQL](https://www.postgresql.org/download/) if the machine does not have it already
+- Install [PostgreSQL](https://www.postgresql.org/download/) and Node.js if the machine does not have it already
 - Add Postgres to the system PATH (Windows only)
 - Open the `PSQL` shell, click enter on all the default and provide the password you have chosen during the installation 
 
@@ -60,8 +60,29 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 - This will populate the local database with the one that has been designed and seeded with for the application
 
-- To ensure the app are making API calls to the local server, 
+- 
+
+
+
+### Hosting the server locally
+
+- To ensure the app are making API calls to the local server, comment line 8 and 18 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
+- uncomment line 9 and 19 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
+- It should look like:
+
+`views/src/DataTable.js`
+
+```javascript
+const url = "http://localhost:9000/"
+//const url = "https://dion-fw-heroku.herokuapp.com/"
+```
+
+`views/src/DataForm.js`
+
+```javascript
+const url = "http://localhost:9000/data"
+// const url = "https://dion-fw-heroku.herokuapp.com/data"
+```
 
 - Install node dependencies through `npm i`
-
 - Start the local server through the `node index.js` command in the terminal

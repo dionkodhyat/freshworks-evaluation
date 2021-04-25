@@ -5,10 +5,12 @@ import Table from 'react-bootstrap/Table'
 
 const DataTable = () => {
     const [data, setData] = useState([])
+    // const url = "http://localhost:9000/data"
+    const url = "https://dion-fw-heroku.herokuapp.com/"
 
     const getData = async () => {
         try {
-            const response = await fetch("http://localhost:9000/")
+            const response = await fetch(url)
             const data = await response.json()
             setData(data)
         } catch (err) {
