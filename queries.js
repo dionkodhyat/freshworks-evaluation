@@ -1,21 +1,10 @@
 const pool = require("./db")
 const SQL = require('sql-template-strings')
 
-const getPark = (req ,res) => {
-    pool.query("SELECT * FROM park", (err, response) => {
-        if (err) throw err
-        res.status(200).json(response.rows)
-    })
-}
-
-const insertPark = (req, res, next) => {
-    const { parkName } = req.body;
-    pool.query(SQL`INSERT INTO park (name) 
-                   VALUES (${parkName}) RETURNING id`, (error, results) => {
-        if (error) {}
-        req.body.parkId = results.rows[0].id
-        next()
-    })
+const validateData = (req, res, next) => {
+    const { parkId, numOfDucks, foodType, foodAmount, timeFed } = req.body;
+    if (isNaN(parseInt(numOfDucks)) || isNaN(parseFloat(foodAmount))) res.sendStatus(406);
+    else next();
 }
 
 const getParkByName = (req, res, next) => {
@@ -32,6 +21,16 @@ const getParkByName = (req, res, next) => {
     })
 }
 
+const insertPark = (req, res, next) => {
+    const { parkName } = req.body;
+    pool.query(SQL`INSERT INTO park (name) 
+                   VALUES (${parkName}) RETURNING id`, (error, results) => {
+        if (error) {}
+        req.body.parkId = results.rows[0].id
+        next()
+    })
+}
+
 
 const insertData = (req, res) => {
     console.log(req.body)
@@ -39,8 +38,8 @@ const insertData = (req, res) => {
     pool.query(SQL`INSERT INTO groupofducks (park_id, group_size, food_name, food_quantity, time_fed) 
                    VALUES (${parkId}, ${numOfDucks}, ${foodType}, ${foodAmount}, ${timeFed})`,
                    (error, result) => {
-                       if (error) res.status(405)
-                       res.status(200)
+                       if (error) res.status(405).send()
+                       res.status(200).send()
                    });
 }
 
@@ -56,9 +55,9 @@ const getData = (req, res) => {
 
 
 module.exports = {
-    getPark,
     insertPark,
     insertData,
     getData,
-    getParkByName
+    getParkByName,
+    validateData
 }

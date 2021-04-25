@@ -13,8 +13,8 @@ app.use(
   )
 
 app.get('/', db.getData)
-app.post('/data', db.getParkByName, db.insertData)
-app.post('/data', db.insertPark, db.insertData)
+app.post('/data', db.getParkByName, db.validateData, db.insertData)
+app.post('/data', db.insertPark, db.validateData, db.insertData)
 
 app.listen(9000, (req, res) => {
     console.log('LISTENING ON PORT 3000')
