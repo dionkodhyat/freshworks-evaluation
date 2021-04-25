@@ -12,13 +12,49 @@ const DataForm = (props) => {
     const [foodType, setfoodType] = useState('');
     const [hour, setHour] = useState('00');
     const [minute, setMinute] = useState('00')
+    const [numOfDucksValidate, setNumOfDucksValidate] = useState(false)
+    const [foodAmountValidate, setFoodAmountValidate] = useState(false)
 
 
 
     const handleSubmit = async (e) => {
-        console.log('HELLO WORLD')
+        e.preventDefault()
+        const data = {
+            parkName : parkName,
+            numOfDucks : numOfDucks,
+            foodAmount : foodAmount,
+            foodType : foodType,
+            timeFed : `${hour}:${minute}`
+        }
+        try {
+            const response = await fetch("http://localhost:9000/data", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method : "post",
+                mode : 'cors',
+                body : JSON.stringify(data)
+            })
+            window.location = "/"
+            props.openModal(false)
+        
+        } catch(err) {
+            alert('Something wrong with the server, please try again later')
+        }
+           
     }
 
+    const validateForm = (e, regex, setFormCallback, setFormValidateCallback) => {
+        if (e.target.value === '' || regex.test(e.target.value))  {
+            setFormCallback(e.target.value)
+            setFormValidateCallback(false)
+        } else {
+            setFormValidateCallback(true)
+        }
+    }
+
+    const regexInt = /^[0-9\b]+$/;
+    const regexFloat = /([0-9]*[.])?[0-9]+/;
 
     return (
         <div>
@@ -40,7 +76,7 @@ const DataForm = (props) => {
                                   placeholder="Enter number of ducks fed" 
                                   name="numOfDucks" 
                                   value={numOfDucks} 
-                                  onChange={(e) => setNumOfDucks(e.target.value)}/>
+                                  onChange={(e) => validateForm(e, regexInt, setNumOfDucks, setNumOfDucksValidate)}/>
                     <Form.Control.Feedback type="invalid">Please enter a number</Form.Control.Feedback>
                 </Form.Group>
 
@@ -62,7 +98,7 @@ const DataForm = (props) => {
                                       placeholder="Enter food amount (g)" 
                                       name="foodAmount" 
                                       value={foodAmount} 
-                                      onChange={(e) => setFoodAmount(e.target.value)}/>
+                                      onChange={(e) => validateForm(e, regexFloat, setFoodAmount, setFoodAmountValidate)}/>
                         <Form.Control.Feedback type="invalid">Please enter a number</Form.Control.Feedback>
                     </Form.Group>
                     
