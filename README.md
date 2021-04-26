@@ -33,56 +33,62 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 ### Running the Client
 
-- `cd views`
-- `npm i`
-- `npm start`
+1. `cd views`
+2. `npm i`
+3. `npm start`
 
 
 
 ### Hosting the database locally
 
-- Install [PostgreSQL](https://www.postgresql.org/download/) and Node.js if the machine does not have it already
-- Add Postgres to the system PATH (Windows only)
-- Open the `PSQL` shell, click enter on all the default and provide the password you have chosen during the installation 
+1. Install [PostgreSQL](https://www.postgresql.org/download/) and [Node.js](https://nodejs.org/en/) if the machine does not have it already
 
-![img](https://i.gyazo.com/f1cdf6f166c4d131c37e9ff3c631f01c.png)
+2. Add Postgres to the system PATH (Windows only)
 
-- Ensure you are at the `postgres=#` section, 
+3. Open the `PSQL` shell, click enter on the first four options and provide the password you have chosen during the installation 
 
-- Create a database with the name of your choosing, for this example I will choose the name `localDB`. To do this run the following command 
+   ![img](https://i.gyazo.com/f1cdf6f166c4d131c37e9ff3c631f01c.png)
 
-  `CREATE DATABASE localDB`
+4. Ensure you are at the `postgres=#` section, 
 
-- Click `ctrl+c` or type in `\q` and enter
+5. Create a database with the name of your choosing, for this example I will choose the name `localdb`. To do this run the following command 
+   `CREATE DATABASE localdb;`
 
-- Go back to the Command Prompt/Terminal and on the project directory, type the following command and replace `localDB` with the name of the database you previously created if differed in the previous steps
-  `psql localDB < dump.pgsql`
+6. Click `ctrl+c` or type in `\q` and confirm to exit out of the psql shell
 
-- This will populate the local database with the one that has been designed and seeded with for the application
+7. Open up another Command Prompt/Terminal and proceed to go on the project directory
 
-- 
+8. Enter the following command and replace `<NAME_OF_DATABASE>` with the name of the database you previously created if differed in the previous steps
+   `psql -U postgres -d <NAME_OF_DATABASE> < dump.sql`
+
+9. This will populate the local database with the one that has been designed and seeded with for the application
+
+10. <u>If the name of your database differs from</u> `localDB`, replace the value of `database` in file `db.js` with the correct database name
 
 
 
 ### Hosting the server locally
 
-- To ensure the app are making API calls to the local server, comment line 8 and 18 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
-- uncomment line 9 and 19 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
-- It should look like:
+1. To ensure the app are making API calls to the local server, uncomment line 8 and 18 for `views/src/components/DataTable.js` and `views/src/components/DataForm.js` respectively
 
-`views/src/DataTable.js`
+2. Comment line 9 and 19 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
 
-```javascript
-const url = "http://localhost:9000/"
-//const url = "https://dion-fw-heroku.herokuapp.com/"
-```
+3. It should look like:
 
-`views/src/DataForm.js`
+   `views/src/components/DataTable.js`
 
-```javascript
-const url = "http://localhost:9000/data"
-// const url = "https://dion-fw-heroku.herokuapp.com/data"
-```
+   ```javascript
+   const url = "http://localhost:9000/"
+   // const url = "https://dion-fw-heroku.herokuapp.com/"
+   ```
 
-- Install node dependencies through `npm i`
-- Start the local server through the `node index.js` command in the terminal
+   ​	`views/src/components/DataForm.js`
+
+   ```javascript
+   const url = "http://localhost:9000/data"
+   // const url = "https://dion-fw-heroku.herokuapp.com/data"
+   ```
+
+4. Back on the terminal, ensure you are in the root folder and Install the node dependencies through `npm i`
+
+5. Start the local server through the `node index.js` command in the terminal
