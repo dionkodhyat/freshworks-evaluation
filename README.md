@@ -33,7 +33,7 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 ### Running the Client
 
-1. `cd views`
+1. `cd client`
 2. `npm i`
 3. `npm start`
 
@@ -69,20 +69,20 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 ### Hosting the server locally
 
-1. To ensure the app are making API calls to the local server, uncomment line 8 and 18 for `views/src/components/DataTable.js` and `views/src/components/DataForm.js` respectively
+1. To ensure the app are making API calls to the local server, uncomment line 8 and 18 for `client/src/components/DataTable.js` and `client/src/components/DataForm.js` respectively
 
 2. Comment line 9 and 19 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
 
 3. It should look like:
 
-   `views/src/components/DataTable.js`
+   `client/src/components/DataTable.js`
 
    ```javascript
    const url = "http://localhost:9000/"
    // const url = "https://dion-fw-heroku.herokuapp.com/"
    ```
 
-   ​	`views/src/components/DataForm.js`
+   ​	`client/src/components/DataForm.js`
 
    ```javascript
    const url = "http://localhost:9000/data"
