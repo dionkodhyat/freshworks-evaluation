@@ -3,6 +3,7 @@ CREATE TABLE park (
     name VARCHAR(50)
 );
 
+
 CREATE TABLE groupOfDucks (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     park_id BIGSERIAL NOT NULL,
