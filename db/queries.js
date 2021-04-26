@@ -13,7 +13,6 @@ const getParkByName = async (req, res, next) => {
         const data = await pool.query(SQL`SELECT * FROM park 
                                           WHERE name=${parkName}`) 
         if (data.rows.length === 0) {
-            console.log('Park not found')
             next('route')
         }
         else {

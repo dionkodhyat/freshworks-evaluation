@@ -71,7 +71,7 @@ I have deployed the server and database to Heroku to simplify the setup process.
 
 1. To ensure the app are making API calls to the local server, uncomment line 8 and 18 for `client/src/components/DataTable.js` and `client/src/components/DataForm.js` respectively
 
-2. Comment line 9 and 19 for `views/src/DataTable.js` and `views/src/DataForm.js` respectively
+2. Comment line 9 and 19 for `client/src/DataTable.js` and `client/src/DataForm.js` respectively
 
 3. It should look like:
 
